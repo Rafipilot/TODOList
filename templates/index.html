@@ -9,21 +9,34 @@
 <body>
     <h1>Tasks</h1>
     <div id="ADD">
-     <form action="{{  url_for('add')  }}" method="POST"> 
+     <form action="{{ url_for('add') }}" method="POST"> 
             <input type="text" name="todo" id="todoInput" placeholder="Add Task">
            <button type="submit">Add</button>
      </form>
     </div>
+
+    <h2>Incomplete Tasks</h2>
     <ul>
-        {% for todo in todos %}
+        {% for todo in incomplete_todos %}
             <li>
                 <span {%if todo['done'] %} style="text-decoration: line-through" {%endif%}>{{ todo['task'] }}  </span>
                 <a href="{{ url_for('check', index=loop.index0) }}">Done</a>
-                <a href="{{ url_for('edit', index=loop.index0) }}">edit</a>
-                <a href="{{ url_for('delete', index=loop.index0) }}">delete</a>
+                <a href="{{ url_for('edit', index=loop.index0) }}">Edit</a>
+                <a href="{{ url_for('delete', index=loop.index0) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Completed Tasks</h2>
+    <ul>
+        {% for todo in complete_todos %}
+            <li>
+                <span style="text-decoration: line-through">{{ todo['task'] }}  </span>
+                <a href="{{ url_for('check', index=loop.index0) }}">Undo</a>
             </li>
         {% endfor %}
     </ul>
 
 </body>
 </html>
+

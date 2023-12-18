@@ -6,7 +6,9 @@ todos = [{"task": "Sample todo", "done": False}]
 
 @app.route("/")
 def index():
-    return render_template("index.html", todos=todos)
+    incomplete_todos = [todo for todo in todos if not todo['done']]
+    complete_todos = [todo for todo in todos if todo['done']]
+    return render_template("index.html", incomplete_todos=incomplete_todos, complete_todos=complete_todos)
 
 
 @app.route("/add", methods=["POST"])
