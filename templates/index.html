@@ -2,26 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>todos</title>
+    <title>Tasks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}"> 
 </head>
 
 <body>
-    <h1>todos</h1>
+    <h1>Tasks</h1>
+    <div id="ADD">
+     <form action="{{  url_for('add')  }}" method="POST"> 
+            <input type="text" name="todo" id="todoInput" placeholder="Add Task">
+           <button type="submit">Add</button>
+     </form>
+    </div>
     <ul>
         {% for todo in todos %}
             <li>
-                
-                <input type="checkbox" name="done" {% if todo['done'] %} checked {%endif%} onchange="this.form.submit()">
                 <span {%if todo['done'] %} style="text-decoration: line-through" {%endif%}>{{ todo['task'] }}  </span>
-                <a href="{{ url_for('check', index=loop.index0) }}">Check</a>
+                <a href="{{ url_for('check', index=loop.index0) }}">Done</a>
                 <a href="{{ url_for('edit', index=loop.index0) }}">edit</a>
                 <a href="{{ url_for('delete', index=loop.index0) }}">delete</a>
             </li>
         {% endfor %}
     </ul>
-    <form action="{{  url_for('add')  }}" method="POST"> 
-        <input type="text" name="todo" id="todoInput">
-        <button type="submit">ADD TODO</button>
-    </form>
+
 </body>
 </html>
